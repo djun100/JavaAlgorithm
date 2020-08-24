@@ -1,4 +1,4 @@
-package com.cy.sort.radix;
+package com.cy.sort;
 
 /**
  * 对于一个int数组，请编写一个基数排序算法，对数组元素排序。

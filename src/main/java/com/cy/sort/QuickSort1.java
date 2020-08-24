@@ -11,16 +11,20 @@ public class QuickSort1 {
         }
     }
 
-    /**核心函数
-     * @param array
-     * @param low
-     * @param high
-     */
     private static void quickSort(int[] array, int low, int high) {
         //1,找到递归算法的出口
         if (low > high) {
             return;
         }
+        int pivot = partition(array, low, high);
+        //5, 对pivotValue左边的数快排
+        quickSort(array, low, pivot - 1);
+        //6, 对pivotValue右边的数快排
+        quickSort(array, pivot + 1, high);
+    }
+
+
+    private static int partition(int[] array, int low, int high) {
         //2, 存
         int leftIndex = low;
         int rightIndex = high;
@@ -45,10 +49,7 @@ public class QuickSort1 {
         // 分析：leftIndex在上面swap之前是rightIndex，rightIndex是从右往左最后一个小于pivotValue的数
         // 所以不存在把中间的大值换到最前面的情况
         UtilSort.swap(array, leftIndex, low);
-        //5, 对pivotValue左边的数快排
-        quickSort(array, low, leftIndex - 1);
-        //6, 对pivotValue右边的数快排
-        quickSort(array, leftIndex + 1, high);
+        return leftIndex;
     }
 
 

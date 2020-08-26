@@ -8,7 +8,7 @@ public class QuickSort3 {
 
     public static void quickSort(int[] arr, int low, int high) {
         int i, j, temp;
-        if (low > high) {
+        if (low >= high) {
             return;
         }
         i = low;
@@ -58,7 +58,7 @@ public class QuickSort3 {
 
 
     public static void main(String[] args) {
-        int[] arr = {10, 7, 2, 4, 7, 62, 3, 4, 2, 1, 8, 9, 19};
+        int[] arr = UtilSort.genArr(10);
         System.out.println(Arrays.toString(arr));
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));

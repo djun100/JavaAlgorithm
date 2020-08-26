@@ -20,20 +20,20 @@ public class HeapSort {
      *     start -- 被下调节点的起始位置(一般为0，表示从第1个开始)
      *     end   -- 截至范围(一般为数组中最后一个元素的索引)
      */
-    public static void maxHeapDown(int[] a, int start, int end) {
-        int c = start;            // 当前(current)节点的位置
-        int l = 2*c + 1;        // 左(left)孩子的位置
-        int tmp = a[c];            // 当前(current)节点的大小
+    public static void maxHeapDown(int[] arr, int start, int end) {
+        int currAsParent = start;            // 当前(current)节点的位置
+        int l = 2*currAsParent + 1;        // 左(left)孩子的位置
+        int currAsParentValue = arr[currAsParent];            // 当前(current)节点值
 
-        for (; l <= end; c=l,l=2*l+1) {
+        for (; l <= end; currAsParent=l,l=2*l+1) {
             // "l"是左孩子，"l+1"是右孩子
-            if ( l < end && a[l] < a[l+1])
+            if ( l < end && arr[l] < arr[l+1])
                 l++;        // 左右两孩子中选择较大者，即m_heap[l+1]
-            if (tmp >= a[l])
+            if (currAsParentValue >= arr[l])
                 break;        // 调整结束
             else {            // 交换值
-                a[c] = a[l];
-                a[l]= tmp;
+                arr[currAsParent] = arr[l];
+                arr[l]= currAsParentValue;
             }
         }
     }

@@ -20,24 +20,28 @@ public class HeapSort {
      *     start -- 被下调节点的起始位置(一般为0，表示从第1个开始)
      *     end   -- 截至范围(一般为数组中最后一个元素的索引)
      */
-    public static void maxHeapDown(int[] arr, int start, int end) {
-        // 当前(current)节点的位置
+    public static void maxHeapDown(int[] arr, int start, int endPoi) {
+        // 当前(current)节点position
         int currAsParentPosition = start;
-        // 左(left)的位置
-        int child = 2*currAsParentPosition + 1;
-        // 当前(current)节点值
+        // 当前(current)节点value
         int currAsParentValue = arr[currAsParentPosition];
 
-        for (; child <= end; currAsParentPosition=child,child=2*child+1) {
-            // "l"是左孩子，"l+1"是右孩子
-            if ( child < end && arr[child] < arr[child+1])
-                child++;        // 左右两孩子中选择较大者，即m_heap[l+1]
-            if (currAsParentValue >= arr[child])
+        // 左(left)的位置
+        int childPoi = 2*currAsParentPosition + 1;
+
+        while (childPoi <= endPoi) {
+            // "childPoi"是左孩子，"childPoi+1"是右孩子
+            if ( childPoi < endPoi && arr[childPoi] < arr[childPoi+1])
+                childPoi++;        // 左右两孩子中选择较大者
+            if (currAsParentValue >= arr[childPoi])
                 break;        // 调整结束
             else {            // 交换值
-                arr[currAsParentPosition] = arr[child];
-                arr[child]= currAsParentValue;
+                arr[currAsParentPosition] = arr[childPoi];
+                arr[childPoi]= currAsParentValue;
             }
+
+            currAsParentPosition=childPoi;
+            childPoi=2*childPoi+1;
         }
     }
 

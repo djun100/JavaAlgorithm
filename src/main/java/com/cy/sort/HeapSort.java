@@ -33,41 +33,19 @@ public class HeapSort {
             // "childPoi"是左孩子，"childPoi+1"是右孩子
             if ( childPoi < endPoi && arr[childPoi] < arr[childPoi+1])
                 childPoi++;        // 左右两孩子中选择较大者
-            if (currAsParentValue >= arr[childPoi])
-                break;        // 调整结束
-            else {            // 交换值
+
+            if (currAsParentValue >= arr[childPoi]){
+                // 当前父节点>两个子节点中最大的那一个，这三点小分支符合堆形态，无需调整
+                break;
+            }
+            else {
+                // 当前父节点<两个子节点中最大的那一个，交换值，让这三点小分支形成堆形态
                 arr[currAsParentPosition] = arr[childPoi];
                 arr[childPoi]= currAsParentValue;
             }
 
             currAsParentPosition=childPoi;
             childPoi=2*childPoi+1;
-        }
-    }
-
-    /*
-     * 堆排序(从小到大)
-     *
-     * 参数说明：
-     *     a -- 待排序的数组
-     *     n -- 数组的长度
-     */
-    public static void heapSortAsc(int[] a, int n) {
-        int i,tmp;
-
-        // 从(n/2-1) --> 0逐次遍历。遍历之后，得到的数组实际上是一个(最大)二叉堆。
-        for (i = n / 2 - 1; i >= 0; i--)
-            maxHeapDown(a, i, n-1);
-
-        // 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素
-        for (i = n - 1; i > 0; i--) {
-            // 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最大的。
-            tmp = a[0];
-            a[0] = a[i];
-            a[i] = tmp;
-            // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最大堆。
-            // 即，保证a[i-1]是a[0...i-1]中的最大值。
-            maxHeapDown(a, 0, i-1);
         }
     }
 
@@ -101,30 +79,42 @@ public class HeapSort {
     }
 
     /*
-     * 堆排序(从大到小)
-     *
-     * 参数说明：
+     * 堆排序
      *     a -- 待排序的数组
-     *     n -- 数组的长度
+     *     isAsc -- 是否从小到大
      */
-    public static void heapSortDesc(int[] a, int n) {
+    public static void heapSort(int[] a,boolean isAsc) {
+        int n = a.length;
         int i,tmp;
 
-        // 从(n/2-1) --> 0逐次遍历每。遍历之后，得到的数组实际上是一个最小堆。
-        for (i = n / 2 - 1; i >= 0; i--)
-            minHeapDown(a, i, n-1);
+        for (i = n / 2 - 1; i >= 0; i--){
+            if (isAsc) {
+                // 从(n/2-1)最后一个父节点 --> 0逐次遍历。遍历之后，得到的数组实际上是一个(最大)二叉堆。
+                maxHeapDown(a, i, n-1);
+            }else {
+                // 从(n/2-1) --> 0逐次遍历每。遍历之后，得到的数组实际上是一个最小堆。
+                minHeapDown(a, i, n-1);
+            }
+        }
 
         // 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素
         for (i = n - 1; i > 0; i--) {
-            // 交换a[0]和a[i]。交换后，a[i]是a[0...i]中最小的。
+            // 交换a[0]和a[i]。
             tmp = a[0];
             a[0] = a[i];
             a[i] = tmp;
-            // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最小堆。
-            // 即，保证a[i-1]是a[0...i-1]中的最小值。
-            minHeapDown(a, 0, i-1);
+            if (isAsc) {
+                // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最大堆。
+                // 即，保证a[i-1]是a[0...i-1]中的最大值。
+                maxHeapDown(a, 0, i-1);
+            }else {
+                // 调整a[0...i-1]，使得a[0...i-1]仍然是一个最小堆。
+                // 即，保证a[i-1]是a[0...i-1]中的最小值。
+                minHeapDown(a, 0, i-1);
+            }
         }
     }
+
 
     public static void main(String[] args) {
         int i;
@@ -135,8 +125,8 @@ public class HeapSort {
             System.out.printf("%d ", a[i]);
         System.out.printf("\n");
 
-        heapSortAsc(a, a.length);            // 升序排列
-        //heapSortDesc(a, a.length);        // 降序排列
+        heapSort(a,true);         // 升序排列
+//        heapSort(a,false);        // 降序排列
 
         System.out.printf("after  sort:");
         for (i=0; i<a.length; i++)

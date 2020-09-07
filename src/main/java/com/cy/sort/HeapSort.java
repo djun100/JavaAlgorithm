@@ -124,7 +124,7 @@ public class HeapSort {
             System.out.printf("%d ", a[i]);
         System.out.printf("\n");
 
-        heapSort(a,false);         // 升序排列
+        heapSort(a,true);         // 升序排列
 //        heapSort(a,false);        // 降序排列
 
         System.out.printf("after  sort:");

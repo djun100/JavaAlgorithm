@@ -84,21 +84,20 @@ public class HeapSort {
      *     isAsc -- 是否从小到大
      */
     public static void heapSort(int[] a,boolean isAsc) {
-        int n = a.length;
         int i,tmp;
 
-        for (i = n / 2 - 1; i >= 0; i--){
+        for (i = a.length / 2 - 1; i >= 0; i--){
             if (isAsc) {
                 // 从(n/2-1)最后一个父节点 --> 0逐次遍历。遍历之后，得到的数组实际上是一个(最大)二叉堆。
-                maxHeapDown(a, i, n-1);
+                maxHeapDown(a, i, a.length-1);
             }else {
                 // 从(n/2-1) --> 0逐次遍历每。遍历之后，得到的数组实际上是一个最小堆。
-                minHeapDown(a, i, n-1);
+                minHeapDown(a, i, a.length-1);
             }
         }
 
         // 从最后一个元素开始对序列进行调整，不断的缩小调整的范围直到第一个元素
-        for (i = n - 1; i > 0; i--) {
+        for (i = a.length - 1; i > 0; i--) {
             // 交换a[0]和a[i]。
             tmp = a[0];
             a[0] = a[i];
@@ -125,7 +124,7 @@ public class HeapSort {
             System.out.printf("%d ", a[i]);
         System.out.printf("\n");
 
-        heapSort(a,true);         // 升序排列
+        heapSort(a,false);         // 升序排列
 //        heapSort(a,false);        // 降序排列
 
         System.out.printf("after  sort:");

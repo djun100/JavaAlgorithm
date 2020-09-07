@@ -29,6 +29,7 @@ public class HeapSort {
         // 左(left)的位置
         int childPoi = 2*currAsParentPosition + 1;
 
+        //这个while循环是为了把小的值下沉到合适的位置，
         while (childPoi <= endPoi) {
             // "childPoi"是左孩子，"childPoi+1"是右孩子
             if ( childPoi < endPoi && arr[childPoi] < arr[childPoi+1])
@@ -44,6 +45,8 @@ public class HeapSort {
                 arr[childPoi]= currAsParentValue;
             }
 
+            //以当前子节点作为父节点，继续下沉小值
+            // 另一个子节点由于heapSort中已经把下层父节点构建成堆形态所以无需关心
             currAsParentPosition=childPoi;
             childPoi=2*childPoi+1;
         }

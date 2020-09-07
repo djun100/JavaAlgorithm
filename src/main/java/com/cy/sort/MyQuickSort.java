@@ -2,7 +2,14 @@ package com.cy.sort;
 
 import com.cy.util.UtilSort;
 
-
+/*
+大体思想及注意点：
+1、左侧基准值，两侧向内比较，
+2、大的放右边，小的放左边，
+3、先右后左，
+4、基准值放中间，两侧递归
+5、递归出口
+ */
 public class MyQuickSort {
 
     private static void quickSort(int[] arr, int low, int high) {

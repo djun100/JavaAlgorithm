@@ -21,7 +21,10 @@ public class MyQuickSort {
         int rightIndex = high;
 
         while (leftIndex < rightIndex) {
-            //3.为什么必须先从右往左，从左往右就是错的（参照值最后肯定要放到中间，如果两个指针重合位置的值比基准值大，互换基准值与重合值就是错误的）
+            //3.为什么必须先从右往左，从左往右就是错的
+            // 参照值最后肯定要放到中间，如果先从右往左，最后中间值肯定小于等于基准值
+            // 如果先从左往右，最后中间值肯定大于等于基准值，基准值和中间值两个大值不便都往中间安排
+            // 如果两个指针重合位置的值比基准值大，互换基准值与重合值就是错误的
             while (arr[rightIndex] >= pivot && leftIndex < rightIndex) {
                 rightIndex--;
             }
@@ -40,6 +43,7 @@ public class MyQuickSort {
         arr[low] = arr[leftIndex];
         arr[leftIndex] = pivot;
 
+        //中间值未参加后续排序，此前必须确保中间值>=左侧，<=右侧
         quickSort(arr,low,leftIndex-1);
         quickSort(arr,leftIndex+1,high);
     }

@@ -31,6 +31,7 @@ public class UseLock {
             while (true) {
                 lock.lock();
                 try {
+                    //有可能被唤醒后还是满的
                     while (list.size() == max) {
                         System.out.println("生产者" + Thread.currentThread().getName() + "  list以达到最大容量，进行wait");
                         full.await();

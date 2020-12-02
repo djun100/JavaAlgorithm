@@ -7,7 +7,7 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class UseSemaphore {
-    List<Integer> buffer = new LinkedList<Integer>();
+    List<Integer> buffer = new LinkedList<>();
     // 互斥量，控制buffer的互斥访问
     private Semaphore mutex = new Semaphore(1);
 

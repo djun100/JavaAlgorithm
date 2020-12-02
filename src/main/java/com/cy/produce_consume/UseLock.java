@@ -50,8 +50,8 @@ public class UseLock {
                 }
             }
         }
-        
     }
+
     class Consumer implements Runnable {
 
         @Override
@@ -75,6 +75,5 @@ public class UseLock {
                 }
             }
         }
-        
     }
 }

@@ -4,32 +4,29 @@ import com.cy.util.UtilSort;
 
 class MyHeapSort {
     public static void heapSort(int[] nums) {
-        int len = nums.length - 1;
-
-        //buildMaxHeap
-        for (int i = len / 2; i >= 0; --i) {
-            maxHeapify(nums, i, len);
+        //buildMaxHeap，从最后一个父节点开始调整
+        for (int i = (nums.length / 2) -1; i >= 0; --i) {
+            maxHeapify(nums, i, nums.length);
         }
 
-        for (int i = len; i >= 1; --i) {
+        for (int i = nums.length-1; i >= 1; --i) {
             UtilSort.swap(nums, i, 0);
-            len -= 1;
-            maxHeapify(nums, 0, len);
+            maxHeapify(nums, 0, i);
         }
     }
 
     //把大值拿走后交换过来的小值循环下沉到合适的位置
     public static void maxHeapify(int[] nums, int i, int len) {
-        for (; (i << 1) + 1 <= len;) {
+        for (; (i << 1) + 1 < len;) {
             int lson = (i << 1) + 1;
             int rson = (i << 1) + 2;
             int large;
-            if (lson <= len && nums[lson] > nums[i]) {
+            if (lson < len && nums[lson] > nums[i]) {
                 large = lson;
             } else {
                 large = i;
             }
-            if (rson <= len && nums[rson] > nums[large]) {
+            if (rson < len && nums[rson] > nums[large]) {
                 large = rson;
             }
             if (large != i) {
@@ -43,7 +40,7 @@ class MyHeapSort {
     }
 
     public static void main(String[] args) {
-        int[] arr = new int[]{3,2,5,8};
+        int[] arr = UtilSort.genArr(10);
         heapSort(arr);
         UtilSort.printArr(arr);
     }
